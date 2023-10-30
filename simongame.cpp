@@ -56,6 +56,7 @@ void SimonGame::flashColorButtons()
 
 void SimonGame::checkPlayerButtonClicked(int color)
 {
+    bool gameOver = false;
     if (playerInput)
     {
         playerInputMoves.push_back(color);
@@ -71,7 +72,7 @@ void SimonGame::checkPlayerButtonClicked(int color)
                 qDebug() << "YOU LOSE!";
                 listOfMoves.clear();
                 playerInputMoves.clear();
-                emit playerLoses();
+                gameOver = true;
                 break;
             }
 
@@ -79,11 +80,13 @@ void SimonGame::checkPlayerButtonClicked(int color)
         }
         qDebug() << movesGenerated;
 
-        //if wring move, ceases all functions immediately, nned to fix
-
-        if (playerInputMoves.size() == listOfMoves.size())
+        if (gameOver)
         {
-            qDebug() << "equals2";
+            emit playerLoses();
+        }
+
+        else if (playerInputMoves.size() == listOfMoves.size())
+        {
             onStartNewGame();
         }
     }

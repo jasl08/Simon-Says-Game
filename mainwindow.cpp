@@ -58,6 +58,7 @@ void MainWindow::setDisableButtons()
 void MainWindow::displayFlashingColor(int color)
 {
     currentColor = color;
+    setDisableButtons();
     QTimer::singleShot(500, this, SLOT(flashColorButton()));
 }
 
