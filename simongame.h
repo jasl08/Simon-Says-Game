@@ -23,6 +23,8 @@ signals:
     void detectedFlashingColor(int);
     void activateButtons();
     void playerLoses();
+    void playerProgressUpdated(int matchedMoves, int totalMoves);
+    void showProgressBar();
 
 private:
     MainWindow *mainWindow;
@@ -31,6 +33,7 @@ private:
     int current_level;
     void selectNextColor();
     void flashColorButtons();
+    bool gameOver;
     bool playerInput;
     bool generatingMoves;
 };

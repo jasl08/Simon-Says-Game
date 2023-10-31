@@ -31,6 +31,9 @@ private slots:
     void on_redButton_clicked();
     void on_blueButton_clicked();
 
+    void updatePlayerProgressBar(int matchedMoves, int totalMoves);
+    void displayProgressBar();
+
 signals:
     void startNewGame();
     void playerClickedButton(int);

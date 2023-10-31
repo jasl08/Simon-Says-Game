@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
 #include <QTimer>
+#include <QMessageBox>
+
 ///
 /// \brief MainWindow::MainWindow
 /// \param parent
@@ -10,12 +12,17 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    ui->progressBar->setMaximum(100);
+    ui->progressBar->setMinimum(0);
+    ui->progressBar->setValue(0);
 
     setDisableButtons();
     simongame = new SimonGame(this);
 
     QObject::connect(this, SIGNAL(startNewGame()), simongame, SLOT(onStartNewGame()));
     QObject::connect(this, SIGNAL(playerClickedButton(int)), simongame, SLOT(checkPlayerButtonClicked(int)));
+    QObject::connect(simongame, SIGNAL(playerProgressUpdated(int, int)), this, SLOT(updatePlayerProgressBar(int, int)));
+    QObject::connect(simongame, SIGNAL(showProgressBar()), this, SLOT(displayProgressBar()));
 }
 
 ///
@@ -25,16 +32,18 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
-//_________________________________________________________________________________________________________________________________
+
 ///
-/// \brief MainWindow::on_startButton_clicked
+/// \brief Ma!
+/// thinWindow::on_startButton_clicked
 ///
 void MainWindow::on_startButton_clicked()
 {
+    ui->GameOverMessage->setText("");
     ui->startButton->setDisabled(true);
     emit startNewGame();
 }
-//_________________________________________________________________________________________________________________________________________
+
 ///
 /// \brief MainWindow::setEnableButtons
 ///
@@ -103,9 +112,23 @@ void MainWindow::on_blueButton_clicked()
     emit playerClickedButton(1);
 }
 
+void MainWindow::updatePlayerProgressBar(int matchedMoves, int totalMoves)
+{
+    int progress = (matchedMoves * 100) / totalMoves; // Calculate percentage progress.
+    qDebug() << progress;
+    ui->progressBar->setValue(progress);
+}
+
+void MainWindow::displayProgressBar()
+{
+    ui->progressBar->setValue(0);    // Reset the progress bar to 0%.
+    ui->progressBar->show();         // Show the progress bar.
+}
+
 void MainWindow::gameOver()
 {
     setDisableButtons();
+    updatePlayerProgressBar(0,1);
     ui->startButton->setEnabled(true);
+    ui->GameOverMessage->setText("You Lost!");
 }
-
