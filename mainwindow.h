@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 #include "simongame.h"
+#include <QMediaPlayer>
+#include <QAudioOutput>
 
 class SimonGame;
 
@@ -43,5 +45,7 @@ private:
     void setDisableButtons();
     SimonGame *simongame;
     int currentColor;
+    QMediaPlayer *player;
+    QAudioOutput *audioOutput;
 };
 #endif // MAINWINDOW_H
