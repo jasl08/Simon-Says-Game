@@ -28,7 +28,6 @@ void SimonGame::selectNextColor()
 {
     int selectColor = QRandomGenerator::global()->bounded(2);
     listOfMoves.push_back(selectColor);
-    qDebug() << listOfMoves;
     flashColorButtons();
 }
 
@@ -72,14 +71,11 @@ void SimonGame::checkPlayerButtonClicked(int color)
     emit playerProgressUpdated(playerInputMoves.size(), listOfMoves.size());
 
     int movesGenerated = 0;
-    qDebug() << "PlayerInputMoves" << playerInputMoves;
-    qDebug() << "ListOfMoves" << listOfMoves;
 
     for (int buttonsClicked : playerInputMoves)
     {
         if (buttonsClicked != listOfMoves[movesGenerated])
         {
-            qDebug() << "YOU LOSE!";
             listOfMoves.clear();
             playerInputMoves.clear();
             gameOver = true;
@@ -88,7 +84,6 @@ void SimonGame::checkPlayerButtonClicked(int color)
 
         movesGenerated += 1;
     }
-    qDebug() << movesGenerated;
 
     if (gameOver)
     {

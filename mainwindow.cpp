@@ -53,7 +53,6 @@ void MainWindow::setEnableButtons()
 {
     ui->redButton->setEnabled(true);
     ui->blueButton->setEnabled(true);
-    qDebug() << "BUTTONS ENABLED";
 }
 
 ///
@@ -63,7 +62,6 @@ void MainWindow::setDisableButtons()
 {
     ui->redButton->setEnabled(false);
     ui->blueButton->setEnabled(false);
-    qDebug() << "BUTTONS DISABLED";
 }
 
 void MainWindow::displayFlashingColor(int color)
@@ -84,7 +82,6 @@ void MainWindow::flashColorButton()
         player->setSource(QUrl("qrc:/sounds/redSound.mp3"));
         audioOutput->setVolume(50);
         player->play();
-        qDebug() << "PLAYED RED";
         ui->redButton->setStyleSheet("background-color:rgb(255, 0, 0)");
     }
 
@@ -93,7 +90,6 @@ void MainWindow::flashColorButton()
         player->setSource(QUrl("qrc:/sounds/blueSound.mp3"));
         audioOutput->setVolume(50);
         player->play();
-        qDebug() << "PLAYED BLUE";
         ui->blueButton->setStyleSheet("background-color:rgb(0, 0, 255)");
     }
 
