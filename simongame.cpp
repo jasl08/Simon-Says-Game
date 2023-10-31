@@ -34,26 +34,31 @@ void SimonGame::selectNextColor()
 
 void SimonGame::flashColorButtons()
 {
-    int delay = 500; // Initial delay
+    int baseDelay = 800; // Base delay for the speed-up effect.
+    int adjustedDelay = baseDelay - ((current_level - 1) * 35); // Reduce delay by 25ms for every level.
+
+    if (adjustedDelay < 325) adjustedDelay = 325; // Minimum delay of 200ms.
+
     if (generatingMoves)
     {
+        int totalDelay = 0; // This will keep track of the cumulative delay for each color.
+
         for (int color : listOfMoves)
         {
-            QTimer::singleShot(delay, this, [this, color] {
+            QTimer::singleShot(totalDelay, this, [this, color] {
                 emit detectedFlashingColor(color);
             });
-
-            delay += 1250;
+            totalDelay += adjustedDelay;
         }
 
-        QTimer::singleShot(delay, this, [this] {
+        QTimer::singleShot(totalDelay, this, [this] {
             emit activateButtons();
         });
 
         generatingMoves = false;
         playerInput = true;
+        current_level += 1;
     }
-
 }
 
 void SimonGame::checkPlayerButtonClicked(int color)

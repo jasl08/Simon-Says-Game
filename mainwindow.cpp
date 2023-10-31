@@ -70,7 +70,7 @@ void MainWindow::displayFlashingColor(int color)
 {
     currentColor = color;
     setDisableButtons();
-    QTimer::singleShot(200, this, SLOT(flashColorButton()));
+    QTimer::singleShot(150, this, SLOT(flashColorButton()));
 }
 
 void MainWindow::flashColorButton()
@@ -97,7 +97,7 @@ void MainWindow::flashColorButton()
         ui->blueButton->setStyleSheet("background-color:rgb(0, 0, 255)");
     }
 
-    QTimer::singleShot(200, this, SLOT(unflashColorButton()));
+    QTimer::singleShot(150, this, SLOT(unflashColorButton()));
 }
 
 void MainWindow::unflashColorButton()
@@ -150,6 +150,7 @@ void MainWindow::updatePlayerProgressBar(int matchedMoves, int totalMoves)
     if (progress > 99)
     {
         ui->buttonBorder->setStyleSheet("background-color: lightgreen;");
+        setDisableButtons();
     }
 
     else
