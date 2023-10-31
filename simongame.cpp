@@ -3,6 +3,8 @@
 #include <QTimer>
 #include <QRandomGenerator>
 
+// Constructor for SimonGame.
+// Sets up the game and initializes the connections between signals and slots.
 SimonGame::SimonGame(MainWindow* _mainWindow)
 {
     mainWindow = _mainWindow;
@@ -10,11 +12,13 @@ SimonGame::SimonGame(MainWindow* _mainWindow)
     playerInput = false;
     generatingMoves = true;
 
+    // Connects game signals to mainWindow slots.
     QObject::connect(this, SIGNAL(detectedFlashingColor(int)), mainWindow, SLOT(displayFlashingColor(int)));
     QObject::connect(this, SIGNAL(activateButtons()), mainWindow, SLOT(setEnableButtons()));
     QObject::connect(this, SIGNAL(playerLoses()), mainWindow, SLOT(gameOver()));
 }
 
+// Begins a new game by clearing player input and setting the conditions to generate moves.
 void SimonGame::onStartNewGame()
 {
     playerInput = false;
@@ -24,13 +28,15 @@ void SimonGame::onStartNewGame()
     selectNextColor();
 }
 
+// Function to select the next color for the game sequence
 void SimonGame::selectNextColor()
 {
-    int selectColor = QRandomGenerator::global()->bounded(2);
+    int selectColor = QRandomGenerator::global()->bounded(2); // Randomly select between two colors (0 or 1)
     listOfMoves.push_back(selectColor);
-    flashColorButtons();
+    flashColorButtons(); // Flash the sequence of colors
 }
 
+// Function to flash the color buttons in the game sequence
 void SimonGame::flashColorButtons()
 {
     int baseDelay = 800; // Base delay for the speed-up effect.
@@ -50,6 +56,7 @@ void SimonGame::flashColorButtons()
             totalDelay += adjustedDelay;
         }
 
+        // Activate player input after flashing the sequence
         QTimer::singleShot(totalDelay, this, [this] {
             emit activateButtons();
         });
@@ -60,6 +67,7 @@ void SimonGame::flashColorButtons()
     }
 }
 
+// Function to check the player's button input against the game sequence
 void SimonGame::checkPlayerButtonClicked(int color)
 {
     bool gameOver = false;
@@ -85,6 +93,7 @@ void SimonGame::checkPlayerButtonClicked(int color)
         movesGenerated += 1;
     }
 
+    // Handle game over or move to next level if player's input is correct
     if (gameOver)
     {
         emit playerLoses();
