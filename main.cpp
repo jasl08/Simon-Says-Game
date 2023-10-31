@@ -15,7 +15,6 @@ The main creative element is that the buttons make a unique sound whenever they 
 ------------------------------------------------------------------------------
 */
 
-
 #include "mainwindow.h"
 #include <QApplication>
 

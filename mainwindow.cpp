@@ -2,7 +2,6 @@
 #include "./ui_mainwindow.h"
 #include <QTimer>
 
-
 /**
  * @brief Constructor for the MainWindow class.
  * @param parent The parent widget.
