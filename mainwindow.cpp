@@ -41,6 +41,7 @@ MainWindow::~MainWindow()
 void MainWindow::on_startButton_clicked()
 {
     ui->GameOverMessage->setText("");
+    ui->buttonBorder->setStyleSheet("background-color: white;");
     ui->startButton->setDisabled(true);
     emit startNewGame();
 }
@@ -69,7 +70,7 @@ void MainWindow::displayFlashingColor(int color)
 {
     currentColor = color;
     setDisableButtons();
-    QTimer::singleShot(500, this, SLOT(flashColorButton()));
+    QTimer::singleShot(200, this, SLOT(flashColorButton()));
 }
 
 void MainWindow::flashColorButton()
@@ -77,47 +78,40 @@ void MainWindow::flashColorButton()
     player = new QMediaPlayer;
     audioOutput = new QAudioOutput;
     player->setAudioOutput(audioOutput);
-    if (QMediaPlayer::EndOfMedia)
+
+    if (currentColor == 0)
     {
-        if (currentColor == 0)
-        {
-            player->setSource(QUrl("qrc:/sounds/redSound.mp3"));
-            audioOutput->setVolume(50);
-            player->play();
-            qDebug() << "PLAYED RED";
-            ui->redButton->setStyleSheet("background-color:rgb(255, 0, 0)");
-        }
-
-        else
-        {
-            player->setSource(QUrl("qrc:/sounds/blueSound.mp3"));
-            audioOutput->setVolume(50);
-            player->play();
-            qDebug() << "PLAYED BLUE";
-            ui->blueButton->setStyleSheet("background-color:rgb(0, 0, 255)");
-        }
-
-        QTimer::singleShot(500, this, SLOT(unflashColorButton()));
+        player->setSource(QUrl("qrc:/sounds/redSound.mp3"));
+        audioOutput->setVolume(50);
+        player->play();
+        qDebug() << "PLAYED RED";
+        ui->redButton->setStyleSheet("background-color:rgb(255, 0, 0)");
     }
 
+    else
+    {
+        player->setSource(QUrl("qrc:/sounds/blueSound.mp3"));
+        audioOutput->setVolume(50);
+        player->play();
+        qDebug() << "PLAYED BLUE";
+        ui->blueButton->setStyleSheet("background-color:rgb(0, 0, 255)");
+    }
+
+    QTimer::singleShot(200, this, SLOT(unflashColorButton()));
 }
 
 void MainWindow::unflashColorButton()
 {
-    if (QMediaPlayer::EndOfMedia)
+    if (currentColor == 0)
     {
-        if (currentColor == 0)
-        {
-            ui->redButton->setStyleSheet( QString("QPushButton {background-color: rgb(113,0,0);} QPushButton:pressed {background-color: rgb(255,0,0);}"));
-        }
-
-        else
-        {
-
-            ui->blueButton->setStyleSheet( QString("QPushButton {background-color: rgb(0,0,113);} QPushButton:pressed {background-color: rgb(0,0,255);}"));
-        }
+        ui->redButton->setStyleSheet( QString("QPushButton {background-color: rgb(113,0,0);} QPushButton:pressed {background-color: rgb(255,0,0);}"));
     }
 
+    else
+    {
+
+        ui->blueButton->setStyleSheet( QString("QPushButton {background-color: rgb(0,0,113);} QPushButton:pressed {background-color: rgb(0,0,255);}"));
+    }
 }
 
 
@@ -127,13 +121,11 @@ void MainWindow::on_redButton_clicked()
     audioOutput = new QAudioOutput;
     player->setAudioOutput(audioOutput);
 
-    if (QMediaPlayer::EndOfMedia)
-    {
-        player->setSource(QUrl("qrc:/sounds/redSound.mp3"));
-        audioOutput->setVolume(50);
-        player->play();
-        emit playerClickedButton(0);
-    }
+    player->setSource(QUrl("qrc:/sounds/redSound.mp3"));
+    audioOutput->setVolume(50);
+    player->play();
+    emit playerClickedButton(0);
+
 }
 
 
@@ -143,20 +135,28 @@ void MainWindow::on_blueButton_clicked()
     audioOutput = new QAudioOutput;
     player->setAudioOutput(audioOutput);
 
-    if (QMediaPlayer::EndOfMedia)
-    {
-        player->setSource(QUrl("qrc:/sounds/blueSound.mp3"));
-        audioOutput->setVolume(50);
-        player->play();
-        emit playerClickedButton(1);
-    }
+
+    player->setSource(QUrl("qrc:/sounds/blueSound.mp3"));
+    audioOutput->setVolume(50);
+    player->play();
+    emit playerClickedButton(1);
 
 }
 
 void MainWindow::updatePlayerProgressBar(int matchedMoves, int totalMoves)
 {
     int progress = (matchedMoves * 100) / totalMoves; // Calculate percentage progress.
-    qDebug() << progress;
+
+    if (progress > 99)
+    {
+        ui->buttonBorder->setStyleSheet("background-color: lightgreen;");
+    }
+
+    else
+    {
+        ui->buttonBorder->setStyleSheet("background-color: white;");
+    }
+
     ui->progressBar->setValue(progress);
 }
 
@@ -171,5 +171,6 @@ void MainWindow::gameOver()
     setDisableButtons();
     updatePlayerProgressBar(0,1);
     ui->startButton->setEnabled(true);
+    ui->buttonBorder->setStyleSheet("background-color: pink;");
     ui->GameOverMessage->setText("You Lost!");
 }
