@@ -70,7 +70,7 @@ void SimonGame::flashColorButtons()
 // Function to check the player's button input against the game sequence
 void SimonGame::checkPlayerButtonClicked(int color)
 {
-    bool gameOver = false;
+    gameOver = false;
 
     // After recording the player's move:
     playerInputMoves.push_back(color);
@@ -96,8 +96,10 @@ void SimonGame::checkPlayerButtonClicked(int color)
     // Handle game over or move to next level if player's input is correct
     if (gameOver)
     {
+        current_level = 1;
         emit playerLoses();
     }
+
     else if (playerInputMoves.size() == listOfMoves.size())
     {
         // Pause for 1 second to let the player see the progress bar at 100%.

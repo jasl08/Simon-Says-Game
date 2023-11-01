@@ -120,7 +120,6 @@ void MainWindow::unflashColorButton()
 
     else
     {
-
         ui->blueButton->setStyleSheet( QString("QPushButton {background-color: rgb(0,0,113);} QPushButton:pressed {background-color: rgb(0,0,255);}"));
     }
 }
@@ -138,7 +137,6 @@ void MainWindow::on_redButton_clicked()
     audioOutput->setVolume(50);
     player->play();
     emit playerClickedButton(0);
-
 }
 
 /**
