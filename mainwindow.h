@@ -52,6 +52,9 @@ public slots:
      */
     void setEnableButtons();
 
+    /**
+     * @brief Displays the current leve a player is at.
+     */
     void displayCurrentLevel(int);
 
 private slots:

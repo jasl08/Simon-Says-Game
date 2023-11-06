@@ -67,6 +67,9 @@ signals:
      */
     void showProgressBar();
 
+    /**
+     * @brief Changes the display of the current level.
+     */
     void updateCurrentLevel(int);
 
 private:
