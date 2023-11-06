@@ -94,21 +94,28 @@ void MainWindow::flashColorButton()
     // 0 represents red and any other value represents blue.
     if (currentColor == 0)
     {
+        player->setSource(QUrl("qrc:/sounds/greenSound.mp3"));
+        audioOutput->setVolume(50);
+        player->play();
         ui->greenButton->setStyleSheet("background-color:rgb(0, 255, 0)");
     }
 
     else if (currentColor == 1)
-    {
-        ui->yellowButton->setStyleSheet("background-color:rgb(255, 255, 0)");
-    }
-
-    else if (currentColor == 2)
     {
         player->setSource(QUrl("qrc:/sounds/redSound.mp3"));
         audioOutput->setVolume(50);
         player->play();
         ui->redButton->setStyleSheet("background-color:rgb(255, 0, 0)");
     }
+
+    else if (currentColor == 2)
+    {
+        player->setSource(QUrl("qrc:/sounds/yellowSound.mp3"));
+        audioOutput->setVolume(50);
+        player->play();
+        ui->yellowButton->setStyleSheet("background-color:rgb(255, 255, 0)");
+    }
+
     else
     {
         player->setSource(QUrl("qrc:/sounds/blueSound.mp3"));
@@ -133,12 +140,12 @@ void MainWindow::unflashColorButton()
 
     else if (currentColor == 1)
     {
-        ui->yellowButton->setStyleSheet( QString("QPushButton {background-color: rgb(113,113,0);} QPushButton:pressed {background-color: rgb(255,255,0);}"));
+        ui->redButton->setStyleSheet( QString("QPushButton {background-color: rgb(113,0,0);} QPushButton:pressed {background-color: rgb(255,0,0);}"));
     }
 
     else if (currentColor == 2)
     {
-        ui->redButton->setStyleSheet( QString("QPushButton {background-color: rgb(113,0,0);} QPushButton:pressed {background-color: rgb(255,0,0);}"));
+        ui->yellowButton->setStyleSheet( QString("QPushButton {background-color: rgb(113,113,0);} QPushButton:pressed {background-color: rgb(255,255,0);}"));
     }
 
     else
@@ -159,7 +166,7 @@ void MainWindow::on_redButton_clicked()
     player->setSource(QUrl("qrc:/sounds/redSound.mp3"));
     audioOutput->setVolume(50);
     player->play();
-    emit playerClickedButton(2);
+    emit playerClickedButton(1);
 }
 
 /**
@@ -171,21 +178,36 @@ void MainWindow::on_blueButton_clicked()
     audioOutput = new QAudioOutput;
     player->setAudioOutput(audioOutput);
 
-
     player->setSource(QUrl("qrc:/sounds/blueSound.mp3"));
     audioOutput->setVolume(50);
     player->play();
+
     emit playerClickedButton(3);
 
 }
 
 void MainWindow::on_yellowButton_clicked()
 {
-    emit playerClickedButton(1);
+    player = new QMediaPlayer;
+    audioOutput = new QAudioOutput;
+    player->setAudioOutput(audioOutput);
+
+    player->setSource(QUrl("qrc:/sounds/yellowSound.mp3"));
+    audioOutput->setVolume(50);
+    player->play();
+
+    emit playerClickedButton(2);
 }
 
 void MainWindow::on_greenButton_clicked()
 {
+    player = new QMediaPlayer;
+    audioOutput = new QAudioOutput;
+    player->setAudioOutput(audioOutput);
+
+    player->setSource(QUrl("qrc:/sounds/greenSound.mp3"));
+    audioOutput->setVolume(50);
+    player->play();
     emit playerClickedButton(0);
 }
 /**

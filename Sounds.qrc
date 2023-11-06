@@ -1,6 +1,8 @@
 <RCC>
     <qresource prefix="/sounds">
-        <file>blueSound.mp3</file>
         <file>redSound.mp3</file>
+        <file>greenSound.mp3</file>
+        <file>blueSound.mp3</file>
+        <file>yellowSound.mp3</file>
     </qresource>
 </RCC>
