@@ -52,6 +52,8 @@ public slots:
      */
     void setEnableButtons();
 
+    void displayCurrentLevel(int);
+
 private slots:
     /**
      * @brief Triggered when the start button is clicked; begins a new game.
@@ -89,6 +91,10 @@ private slots:
      * @brief Displays a progress bar on the UI.
      */
     void displayProgressBar();
+
+    void on_yellowButton_clicked();
+
+    void on_greenButton_clicked();
 
 signals:
     /**

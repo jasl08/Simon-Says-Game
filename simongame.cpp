@@ -16,6 +16,7 @@ SimonGame::SimonGame(MainWindow* _mainWindow)
     QObject::connect(this, SIGNAL(detectedFlashingColor(int)), mainWindow, SLOT(displayFlashingColor(int)));
     QObject::connect(this, SIGNAL(activateButtons()), mainWindow, SLOT(setEnableButtons()));
     QObject::connect(this, SIGNAL(playerLoses()), mainWindow, SLOT(gameOver()));
+    QObject::connect(this, SIGNAL(updateCurrentLevel(int)), mainWindow, SLOT(displayCurrentLevel(int)));
 }
 
 // Begins a new game by clearing player input and setting the conditions to generate moves.
@@ -31,7 +32,7 @@ void SimonGame::onStartNewGame()
 // Function to select the next color for the game sequence
 void SimonGame::selectNextColor()
 {
-    int selectColor = QRandomGenerator::global()->bounded(2); // Randomly select between two colors (0 or 1)
+    int selectColor = QRandomGenerator::global()->bounded(4); // Randomly select between four colors (0, 1, 2, 3)
     listOfMoves.push_back(selectColor);
     flashColorButtons(); // Flash the sequence of colors
 }
@@ -63,6 +64,7 @@ void SimonGame::flashColorButtons()
 
         generatingMoves = false;
         playerInput = true;
+        emit updateCurrentLevel(current_level);
         current_level += 1;
     }
 }
@@ -79,7 +81,7 @@ void SimonGame::checkPlayerButtonClicked(int color)
     emit playerProgressUpdated(playerInputMoves.size(), listOfMoves.size());
 
     int movesGenerated = 0;
-
+    qDebug() << listOfMoves;
     for (int buttonsClicked : playerInputMoves)
     {
         if (buttonsClicked != listOfMoves[movesGenerated])

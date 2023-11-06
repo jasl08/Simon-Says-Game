@@ -67,6 +67,8 @@ signals:
      */
     void showProgressBar();
 
+    void updateCurrentLevel(int);
+
 private:
     MainWindow *mainWindow; ///< Pointer to the main window object for UI updates.
 

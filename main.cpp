@@ -1,13 +1,17 @@
 /*
 ------------------------------------------------------------------------------
 Project: Simon Game
+(Original project)
 Team Members:
-    - Alex Qi
     - Jason Lin
+    - Alex Qi
 
 GitHub Usernames:
-    - Qibola
     - jasl08
+    - Qibola
+
+(Additional Elements after original project)
+    - Jason Lin, jasl08
 
 Creative Element:
 This version of the classic Simon Game lights up green whenever a player finishes a level, and lights up red when they inevitably make a mistake and lose.

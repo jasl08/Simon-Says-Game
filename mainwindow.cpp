@@ -55,6 +55,8 @@ void MainWindow::setEnableButtons()
 {
     ui->redButton->setEnabled(true);
     ui->blueButton->setEnabled(true);
+    ui->yellowButton->setEnabled(true);
+    ui->greenButton->setEnabled(true);
 }
 
 /**
@@ -62,8 +64,10 @@ void MainWindow::setEnableButtons()
  */
 void MainWindow::setDisableButtons()
 {
-    ui->redButton->setEnabled(false);
-    ui->blueButton->setEnabled(false);
+    ui->redButton->setDisabled(true);
+    ui->blueButton->setDisabled(true);
+    ui->greenButton->setDisabled(true);
+    ui->yellowButton->setDisabled(true);
 }
 
 /**
@@ -90,12 +94,21 @@ void MainWindow::flashColorButton()
     // 0 represents red and any other value represents blue.
     if (currentColor == 0)
     {
+        ui->greenButton->setStyleSheet("background-color:rgb(0, 255, 0)");
+    }
+
+    else if (currentColor == 1)
+    {
+        ui->yellowButton->setStyleSheet("background-color:rgb(255, 255, 0)");
+    }
+
+    else if (currentColor == 2)
+    {
         player->setSource(QUrl("qrc:/sounds/redSound.mp3"));
         audioOutput->setVolume(50);
         player->play();
         ui->redButton->setStyleSheet("background-color:rgb(255, 0, 0)");
     }
-
     else
     {
         player->setSource(QUrl("qrc:/sounds/blueSound.mp3"));
@@ -114,6 +127,16 @@ void MainWindow::unflashColorButton()
 {
     // Based on the currentColor, revert the color button's style.
     if (currentColor == 0)
+    {
+        ui->greenButton->setStyleSheet( QString("QPushButton {background-color: rgb(0,113,0);} QPushButton:pressed {background-color: rgb(0,255,0);}"));
+    }
+
+    else if (currentColor == 1)
+    {
+        ui->yellowButton->setStyleSheet( QString("QPushButton {background-color: rgb(113,113,0);} QPushButton:pressed {background-color: rgb(255,255,0);}"));
+    }
+
+    else if (currentColor == 2)
     {
         ui->redButton->setStyleSheet( QString("QPushButton {background-color: rgb(113,0,0);} QPushButton:pressed {background-color: rgb(255,0,0);}"));
     }
@@ -136,7 +159,7 @@ void MainWindow::on_redButton_clicked()
     player->setSource(QUrl("qrc:/sounds/redSound.mp3"));
     audioOutput->setVolume(50);
     player->play();
-    emit playerClickedButton(0);
+    emit playerClickedButton(2);
 }
 
 /**
@@ -152,10 +175,19 @@ void MainWindow::on_blueButton_clicked()
     player->setSource(QUrl("qrc:/sounds/blueSound.mp3"));
     audioOutput->setVolume(50);
     player->play();
-    emit playerClickedButton(1);
+    emit playerClickedButton(3);
 
 }
 
+void MainWindow::on_yellowButton_clicked()
+{
+    emit playerClickedButton(1);
+}
+
+void MainWindow::on_greenButton_clicked()
+{
+    emit playerClickedButton(0);
+}
 /**
  * @brief Updates the player's progress bar based on matched moves and total moves in the sequence.
  * @param matchedMoves Number of correct moves made by the player.
@@ -188,6 +220,12 @@ void MainWindow::displayProgressBar()
     ui->progressBar->show();         // Show the progress bar.
 }
 
+void MainWindow::displayCurrentLevel(int currentLevel)
+{
+
+    QString level = QString::number(currentLevel);
+    ui->startButton->setText(level);
+}
 /**
  * @brief Handles the game-over scenario by updating the UI and allowing for a new game to start.
  */
@@ -198,4 +236,10 @@ void MainWindow::gameOver()
     ui->startButton->setEnabled(true);
     ui->buttonBorder->setStyleSheet("background-color: pink;");
     ui->GameOverMessage->setText("You Lost!");
+    ui->startButton->setText("Start");
 }
+
+
+
+
+

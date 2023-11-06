@@ -7,32 +7,35 @@
     <x>0</x>
     <y>0</y>
     <width>600</width>
-    <height>400</height>
+    <height>423</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>600</width>
-    <height>400</height>
+    <width>0</width>
+    <height>0</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>600</width>
-    <height>400</height>
+    <width>16777215</width>
+    <height>16777215</height>
    </size>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QPushButton" name="redButton">
     <property name="geometry">
      <rect>
-      <x>140</x>
-      <y>100</y>
-      <width>121</width>
-      <height>191</height>
+      <x>170</x>
+      <y>210</y>
+      <width>130</width>
+      <height>130</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -51,10 +54,10 @@ background-color: rgb(113, 0, 0);
    <widget class="QPushButton" name="blueButton">
     <property name="geometry">
      <rect>
-      <x>340</x>
-      <y>100</y>
-      <width>121</width>
-      <height>191</height>
+      <x>300</x>
+      <y>210</y>
+      <width>130</width>
+      <height>130</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -70,27 +73,17 @@ background-color: rgb(0, 0, 113);
      <string/>
     </property>
    </widget>
-   <widget class="Line" name="line">
-    <property name="geometry">
-     <rect>
-      <x>290</x>
-      <y>80</y>
-      <width>20</width>
-      <height>231</height>
-     </rect>
-    </property>
-    <property name="orientation">
-     <enum>Qt::Vertical</enum>
-    </property>
-   </widget>
    <widget class="QPushButton" name="startButton">
     <property name="geometry">
      <rect>
-      <x>240</x>
-      <y>340</y>
-      <width>121</width>
-      <height>31</height>
+      <x>230</x>
+      <y>140</y>
+      <width>141</width>
+      <height>141</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
     </property>
     <property name="text">
      <string>Start</string>
@@ -100,10 +93,13 @@ background-color: rgb(0, 0, 113);
     <property name="geometry">
      <rect>
       <x>170</x>
-      <y>43</y>
-      <width>261</width>
-      <height>20</height>
+      <y>50</y>
+      <width>271</width>
+      <height>13</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(122, 122, 122);</string>
     </property>
     <property name="value">
      <number>0</number>
@@ -113,9 +109,9 @@ background-color: rgb(0, 0, 113);
     <property name="geometry">
      <rect>
       <x>100</x>
-      <y>80</y>
+      <y>70</y>
       <width>401</width>
-      <height>231</height>
+      <height>281</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -126,19 +122,6 @@ background-color: rgb(0, 0, 113);
     </property>
     <property name="text">
      <string/>
-    </property>
-   </widget>
-   <widget class="Line" name="line_2">
-    <property name="geometry">
-     <rect>
-      <x>290</x>
-      <y>80</y>
-      <width>20</width>
-      <height>231</height>
-     </rect>
-    </property>
-    <property name="orientation">
-     <enum>Qt::Vertical</enum>
     </property>
    </widget>
    <widget class="QLabel" name="GameOverMessage">
@@ -163,14 +146,58 @@ background-color: rgb(0, 0, 113);
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
+   <widget class="QPushButton" name="yellowButton">
+    <property name="geometry">
+     <rect>
+      <x>300</x>
+      <y>80</y>
+      <width>130</width>
+      <height>130</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#yellowButton{
+background-color: rgb(113, 113, 0);
+}
+
+#yellowButton:pressed {
+    background-color: rgb(255, 255, 0);
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="greenButton">
+    <property name="geometry">
+     <rect>
+      <x>170</x>
+      <y>80</y>
+      <width>130</width>
+      <height>130</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">#greenButton{
+background-color: rgb(0, 113, 0);
+}
+
+#greenButton:pressed {
+    background-color: rgb(0, 255, 0);
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
    <zorder>buttonBorder</zorder>
    <zorder>redButton</zorder>
    <zorder>blueButton</zorder>
-   <zorder>line</zorder>
-   <zorder>startButton</zorder>
    <zorder>progressBar</zorder>
-   <zorder>line_2</zorder>
    <zorder>GameOverMessage</zorder>
+   <zorder>yellowButton</zorder>
+   <zorder>greenButton</zorder>
+   <zorder>startButton</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
